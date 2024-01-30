@@ -16,6 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.js";
+import Form_consulta from "views/Form";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
@@ -33,12 +34,22 @@ var routes = [
     component: <Dashboard />,
     layout: "/admin",
   },
+  /*
   {
     path: "/icons",
     name: "Icons",
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
-    component: <Icons />,
+    component: <Form_consulta />,
+    layout: "/admin",
+  },
+  */
+  {
+    path: "/form",
+    name: "Consulta",
+    rtlName: "الرموز",
+    icon: "tim-icons icon-atom",
+    component: <Form_consulta />,
     layout: "/admin",
   },
   {
