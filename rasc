@@ -1,0 +1,52 @@
+<FormControl fullWidth>
+  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={age}
+    label="Age"
+    onChange={handleChange}
+  >
+    <MenuItem value={10}>Ten</MenuItem>
+    <MenuItem value={20}>Twenty</MenuItem>
+    <MenuItem value={30}>Thirty</MenuItem>
+  </Select>
+</FormControl>
+            <FormControl fullWidth>
+                {dataCadernos && dataCadernos.length > 0 ? 
+                <InputLabel id="label-Cadernos">Cadernos</InputLabel>
+                <Select 
+                id="Cadernos" 
+                Label="Cadernos" 
+                placeholder="Escolha o Caderno" 
+                onChange={handleChange_Caderno}>
+                        {dataCadernos.map(caderno => 
+                        <MenuItem  
+                        value={caderno.value}> 
+                            {caderno.text}
+                        </MenuItem>
+                        )}
+                </Select>:
+                <Spinner>
+                    Loading...
+                </Spinner>
+                }
+                {dataSecoes && dataSecoes.length > 0 && displaySecoes ? 
+                <InputLabel id="label-Secoes">Seções</InputLabel>
+                <Select 
+                id="Seções" 
+                Label="Seções" 
+                placeholder="Escolha a Seção" 
+                onChange={handleChange_Seçoes}>
+                        {dataSecoes.map(secao => 
+                        <MenuItem  
+                        value={secao.value}> 
+                            {secao.text}
+                        </MenuItem>
+                        )}
+                </Select>:
+                <Spinner>
+                    Loading...
+                </Spinner>
+                    }
+            <FormControl fullWidth>

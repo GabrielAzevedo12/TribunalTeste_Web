@@ -27,6 +27,14 @@ import UserProfile from "views/UserProfile.js";
 
 var routes = [
   {
+    path: "/form",
+    name: "Consulta",
+    rtlName: "الرموز",
+    icon: "tim-icons icon-atom",
+    component: <Form_consulta />,
+    layout: "/admin",
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
@@ -45,32 +53,8 @@ var routes = [
   },
   */
   {
-    path: "/form",
-    name: "Consulta",
-    rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
-    component: <Form_consulta />,
-    layout: "/admin",
-  },
-  {
-    path: "/map",
-    name: "Map",
-    rtlName: "خرائط",
-    icon: "tim-icons icon-pin",
-    component: <Map />,
-    layout: "/admin",
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    rtlName: "إخطارات",
-    icon: "tim-icons icon-bell-55",
-    component: <Notifications />,
-    layout: "/admin",
-  },
-  {
     path: "/user-profile",
-    name: "User Profile",
+    name: "Perfil do Usuário",
     rtlName: "ملف تعريفي للمستخدم",
     icon: "tim-icons icon-single-02",
     component: <UserProfile />,
@@ -78,12 +62,13 @@ var routes = [
   },
   {
     path: "/tables",
-    name: "Table List",
+    name: "Tabelas",
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",
     component: <TableList />,
     layout: "/admin",
   },
+  /*
   {
     path: "/typography",
     name: "Typography",
@@ -100,5 +85,22 @@ var routes = [
     component: <Rtl />,
     layout: "/rtl",
   },
+    {
+    path: "/map",
+    name: "Map",
+    rtlName: "خرائط",
+    icon: "tim-icons icon-pin",
+    component: <Map />,
+    layout: "/admin",
+  },
+  {
+    path: "/notifications",
+    name: "Notifications",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-bell-55",
+    component: <Notifications />,
+    layout: "/admin",
+  },
+  */
 ];
 export default routes;
