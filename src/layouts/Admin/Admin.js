@@ -31,6 +31,8 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
+import { Application_Helmet } from "components/Helmet";
+import AdsenseComponent from "components/AdSense/AdsenseComponent";
 
 var ps;
 
@@ -53,16 +55,18 @@ function Admin(props) {
       }
     }
     //Set Script
+    /*
     const script = document.createElement('script');
-    script.src = "../src/linkteste.js";
+    script.src = "./linkteste.js";
     script.async = true;
-    script.type = "text/babel"
+    script.type = "text/jsx"
     document.body.appendChild(script);
+    */
 
     // Specify how to clean up after this effect:
     return function cleanup() {
       //Add Scripts in DOM
-      document.body.removeChild(script);
+      //document.body.removeChild(script);
       if (navigator.platform.indexOf("Win") > -1) {
         ps.destroy();
         document.documentElement.classList.add("perfect-scrollbar-off");
@@ -71,6 +75,19 @@ function Admin(props) {
     };
 
   });
+/*
+  React.useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "./linkteste.js";
+    script.async = true;
+    script.type = "text/jsx"
+    document.body.append(script);
+  
+    return () => {
+      document.body.remove(script);
+    }
+  }, []);
+*/
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       let tables = document.querySelectorAll(".table-responsive");
@@ -112,6 +129,10 @@ function Admin(props) {
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
         <React.Fragment>
+          <AdsenseComponent
+          adClient='ca-pub-12121212'
+          adSlot='12121212'
+          adFormat='auto' />
           <div className="wrapper">
             <Sidebar
               routes={routes}
