@@ -31,7 +31,6 @@ import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 root.render(
   <ThemeContextWrapper>
     <BackgroundColorWrapper>

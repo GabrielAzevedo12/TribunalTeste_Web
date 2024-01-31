@@ -90,7 +90,10 @@ body {
   line-height: 1.5;
   color: #525f7f;
   text-align: left;
+  /*
   background-color: #1e1e2f;
+  */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(238,36,6,1) 99%, rgba(0,212,255,1) 100%);
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -17374,7 +17377,10 @@ hr {
   width: 100%;
   min-height: 100vh;
   border-top: 2px solid #e14eca;
+  /*
   background: linear-gradient(#1e1e2f, #1e1e24);
+  */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(238,36,6,1) 99%, rgba(0,212,255,1) 100%);
   -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
   -moz-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
   -o-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
@@ -17864,7 +17870,10 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 }
 
 .bd-docs .bd-example {
+  /*
   background: linear-gradient(#1e1e2f, #1e1e24);
+  */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(238,36,6,1) 99%, rgba(0,212,255,1) 100%);
 }
 
 .bd-docs .navbar {

@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+//<script src="../src/linkteste.js"></script>
 import React from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
@@ -51,14 +52,24 @@ function Admin(props) {
         ps = new PerfectScrollbar(tables[i]);
       }
     }
+    //Set Script
+    const script = document.createElement('script');
+    script.src = "../src/linkteste.js";
+    script.async = true;
+    script.type = "text/babel"
+    document.body.appendChild(script);
+
     // Specify how to clean up after this effect:
     return function cleanup() {
+      //Add Scripts in DOM
+      document.body.removeChild(script);
       if (navigator.platform.indexOf("Win") > -1) {
         ps.destroy();
         document.documentElement.classList.add("perfect-scrollbar-off");
         document.documentElement.classList.remove("perfect-scrollbar-on");
       }
     };
+
   });
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -106,7 +117,7 @@ function Admin(props) {
               routes={routes}
               logo={{
                 outterLink: "https://www.creative-tim.com/",
-                text: "Creative Tim",
+                text: "Consulta TJSP",
                 imgSrc: logo,
               }}
               toggleSidebar={toggleSidebar}
