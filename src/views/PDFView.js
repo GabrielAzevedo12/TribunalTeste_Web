@@ -26,7 +26,7 @@ function PDFView() {
   return (
     <>
     <div className="content">
-        <iframe src="https://research.google.com/pubs/archive/44678.pdf" width="100%" height="600"></iframe>
+        <iframe src="https://dje.tjsp.jus.br/cdje/getPaginaDoDiario.do?cdVolume=18&nuDiario=3895&cdCaderno=10&nuSeqpagina=1&uuidCaptcha=" width="100%" height="600"></iframe>
     </div>
     </>
   );

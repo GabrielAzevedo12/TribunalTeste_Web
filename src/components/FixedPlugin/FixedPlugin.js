@@ -47,12 +47,12 @@ function FixedPlugin(props) {
                 }}
               />{" "}
               <Badge
-                color="success"
+                color="white"
                 className={
-                  props.bgColor === backgroundColors.green ? "active" : ""
+                  props.bgColor === backgroundColors.darklight ? "active" : ""
                 }
                 onClick={() => {
-                  props.handleBgClick(backgroundColors.green);
+                  props.handleBgClick(backgroundColors.darklight);
                 }}
               />{" "}
             </div>

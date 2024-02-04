@@ -348,6 +348,11 @@
   &[data="blue"]{
     @include linear-gradient($info-states, $info);
   }
+  
+  &[data="darklight"]{
+    @include linear-gradient($danger-states, $ultrawhite);
+  }
+
   &[data="green"]{
     @include linear-gradient($success-states, $success);
   }
