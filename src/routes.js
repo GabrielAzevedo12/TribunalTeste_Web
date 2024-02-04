@@ -17,6 +17,7 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Form_consulta from "views/Form";
+import PDFView from "views/PDFView";
 import Icons from "views/Icons.js";
 import Map from "views/Map.js";
 import Notifications from "views/Notifications.js";
@@ -32,6 +33,14 @@ var routes = [
     rtlName: "الرموز",
     icon: "tim-icons icon-atom",
     component: <Form_consulta />,
+    layout: "/admin",
+  },
+  {
+    path: "/pdf-view",
+    name: "PDFView",
+    rtlName: "الرموز",
+    icon: "tim-icons icon-atom",
+    component: <PDFView />,
     layout: "/admin",
   },
   {

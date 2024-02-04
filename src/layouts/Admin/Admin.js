@@ -129,10 +129,6 @@ function Admin(props) {
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
         <React.Fragment>
-          <AdsenseComponent
-          adClient='ca-pub-12121212'
-          adSlot='12121212'
-          adFormat='auto' />
           <div className="wrapper">
             <Sidebar
               routes={routes}
@@ -170,3 +166,9 @@ function Admin(props) {
 }
 
 export default Admin;
+/*
+ <AdsenseComponent
+          adClient='ca-pub-12121212'
+          adSlot='12121212'
+          adFormat='auto' />
+*/

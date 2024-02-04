@@ -18,7 +18,7 @@
 import React from "react";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col, Input, Form, CardText, Spinner, FormGroup, Label } from "reactstrap";
+import { Card, CardHeader, CardBody, Row, Col, Input, Form, CardText, Spinner, FormGroup, Label, Button } from "reactstrap";
 import { Select, InputLabel, FormControl, SelectChangeEvent, MenuItem, CircularProgress} from "@mui/material";
 import axios from "axios";
 import FlexRow from "styledComponents/flexRow.css";
@@ -29,7 +29,9 @@ import styled from "styled-components";
 //import InputLabel from '@mui/material/InputLabel';
 //import MenuItem from '@mui/material/MenuItem';
 //import FormControl from '@mui/material/FormControl';
-
+const list_cadernos = require("../dados/json/cadernos.json")
+const list_secoes = require("../dados/json/secao.json")
+const dataForm_local = {list_cadernos, list_secoes: list_secoes[0]}
 const LabelStyled = styled(Label)(` 
 background-color: "transparent";
 & div {
@@ -41,8 +43,8 @@ function Form_consulta() {
     const [date, setDate] = React.useState(new Date());
     const [dataForm, setDataForm] = React.useState('');
     const [urlPdf, seturlPdf] = React.useState('');
-    const [dataCadernos, setdataCadernos] = React.useState(dataForm.list_cadernos)
-    const [dataSecoes, setdataSecoes] = React.useState(dataForm.list_secoes)
+    const [dataCadernos, setdataCadernos] = React.useState(list_secoes)
+    const [dataSecoes, setdataSecoes] = React.useState(list_secoes[0])
     const [displaySecoes, setdisplaySecoes] = React.useState(true)
     const [ValueCaderno, setValueCaderno] = React.useState("")
     const [ValueSecao, setValueSecao] = React.useState("")
@@ -50,59 +52,96 @@ function Form_consulta() {
     //const [ChangeEvent, setChangeEvent] = React.useState(SelectChangeEvent || false)
 
     const getUrl = (caderno_value, secao_value) => {
-        const options_get = {
-            cadernos:  caderno_value || 0,
-            secoes: secao_value || 0
-    };
 
-    axios.get("https://fastapi-selenium-production-30d6.up.railway.app/tjsp/servicos/consulta/cadernos_secoes?cadernos=0&secoes=0", {
-        params: options_get,
-        headers: {
+        axios.get("https://fastapi-selenium-production-30d6.up.railway.app/tjsp/servicos/consulta", {
+            params: {
+                cadernos:  caderno_value || 0,
+                secoes: secao_value || 0
+            },
+            headers: {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-                 }
-    })
-    .then(function (response) {
-        console.log(response.data)
-        setDataForm(response.data)
-        setdataCadernos(response.data.list_cadernos)
-        setdataSecoes(response.data.list_secoes)
-     })
-    .catch(function (error) {
-        // manipula erros da requisição
+            }
+        })
+        .then(function (response) {
+            if (response) {
+                console.log(response.data)
+                setDataForm(response.data)
+            }
+        })
+        .catch(function (error) {
+            // manipula erros da requisição
         console.error(error);
-    })
-    .finally(function () {
-        // sempre será executado
-    });
-  
-  }
+        })
+        .finally(function () {
+            // sempre será executado
+        });
 
-  const handleChange_Caderno = (SelectChangeEvent) => {
-    //setAge(event.target.value);
-    console.log(SelectChangeEvent)
-  };
-  const handleChange_Seçoes = (SelectChangeEvent) => {
-    //setAge(event.target.value)
-    console.log(SelectChangeEvent)
-  };
-  
-  const handleChange_age = (SelectChangeEvent) => {
-    setAge(SelectChangeEvent.target.value);
-};
+     }
+
+    const getSecoes = (caderno_value, secao_value) => {
+
+        setdisplaySecoes(false)
+
+        axios.get("https://fastapi-selenium-production-30d6.up.railway.app/tjsp/servicos/consulta/secoes2", {
+          params: {
+              "cadernos": caderno_value || 0,
+              "secoes": secao_value || 0
+          }
+        })
+        .then(function (response) {
+          // manipula o sucesso da requisição
+          if(response) {
+            setdataSecoes(response.data)
+            setdisplaySecoes(true)
+          }
+        })
+        .catch(function (error) {
+          // manipula erros da requisição
+          console.error(error);
+        })
+        .finally(function () {
+          // sempre será executado
+        });
+
+      }
+
+    const handleChange_Caderno = (e) => {
+        //setAge(event.target.value);
+        setValueCaderno(e.target.selectedIndex)
+    };
+    const handleChange_Seçoes = (e) => {
+        //setAge(event.target.value)
+        console.log(e)
+    };
 
     React.useEffect(() => {
-        getUrl(undefined, undefined)
+        //getUrl(undefined, undefined)
+        console.log(dataForm_local)
+        setDataForm(dataForm_local)
+        setdataCadernos(dataForm_local.list_cadernos)
+        setValueCaderno(0)
+        setdataSecoes(dataForm_local.list_secoes)
     }, []);
+
+    React.useEffect(() => {
+        setdataSecoes(list_secoes[ValueCaderno])
+    }, [ValueCaderno]);
 
   return (
     <>
     <div className="content">
-        <Form>
+        <Form 
+        style={{
+            marginTop: "10vh"
+        }}>
             <FormGroup>
-                <Label style={{
-                  backgroundColor: "transparent"
-                }} for="exampleDate">
+                <Label 
+                style={{
+                  backgroundColor: "transparent",
+                  marginTop: "5vh"
+                }}
+                for="exampleDate">
                 Date
                 </Label>
                 <Input
@@ -111,79 +150,69 @@ function Form_consulta() {
                 placeholder="date placeholder"
                 type="date"
                 />
-            </FormGroup>
-      <FormControl fullWidth>
-        <FlexRow justifyContent={"center"} Background={"transparent"}
-        style={{
-          marginTop: "20px"
-        }}>
         {dataCadernos && dataCadernos.length > 0 ? 
                 <>
-                <FormGroup>
-                <FlexColumn>
-                <LabelStyled id="label-Cadernos">Cadernos</LabelStyled>
-                <Select 
-                id="Cadernos" 
-                Label="Cadernos" 
+                <Label 
+                id="label-Cadernos"
+                style={{
+                  backgroundColor: "transparent",
+                  marginTop: "5vh"
+                }} 
+                for="label-Cadernos">Cadernos</Label>
+                <Input 
+                id="Cadernos"  
                 name="label-Cadernos"
                 placeholder="Escolha o Caderno" 
                 onChange={handleChange_Caderno}
-                sx={{     
-                  borderColor: "#fff",
-                  background: "#202841",
-                  width: "70vw" }}>
+                type="select">
                     {dataCadernos.map(caderno => 
-                    <MenuItem  
+                    <option  
                     value={caderno.value}> 
                     {caderno.text}
-                    </MenuItem>
+                    </option>
                     )}
-                </Select>
-                </FlexColumn>
-                </FormGroup>
+                </Input>
                 </> :
                 <>
                 <CircularProgress/>
                 </>
                 }
-        </FlexRow>
-        <FlexRow justifyContent={"center"} Background={"transparent"}
-        style={{
-          marginTop: "50px"
-        }}>
         {dataSecoes && dataSecoes.length > 0 && displaySecoes ?
                 <> 
-                <FormGroup>
-                <FlexColumn>
-                <LabelStyled style={{
-                  backgroundColor: "transparent"
-                }} for="label-Secoes">Seções</LabelStyled>
-                <Select 
-                id="Seções" 
-                Label="Seções" 
+                <Label 
+                id="label-Secoes"
+                style={{
+                  backgroundColor: "transparent",
+                  marginTop: "5vh"
+                }} 
+                for="label-Secoes">Secoes</Label>
+                <Input 
+                id="Seções"  
                 name="label-Secoes"
                 placeholder="Escolha a Seção" 
                 onChange={handleChange_Seçoes}
-                sx={{     
-                  borderColor: "#fff",
-                  background: "#202841",
-                  width: "70vw" }}>
+                type="select">
                         {dataSecoes.map(secao => 
-                        <MenuItem  
+                        <option  
                         value={secao.value}> 
                             {secao.text}
-                        </MenuItem>
+                        </option>
                         )}
-                </Select>
-                </FlexColumn>
-                </FormGroup>
+                </Input>
                 </>:
                 <>
                 <CircularProgress/>
                 </>
                     }
-        </FlexRow>
-      </FormControl>
+                     <FlexRow 
+                     justifyContent={"center"} 
+                     Background={"transparent"}
+                     style={{
+                        marginTop: "5vh"
+                     }}>
+                        <Button color="danger" id="Button_Consultar">Consultar</Button>
+                    </FlexRow>
+            </FormGroup>
         </Form>       
     </div>
     </>

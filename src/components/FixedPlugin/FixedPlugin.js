@@ -38,21 +38,12 @@ function FixedPlugin(props) {
           <li className="adjustments-line">
             <div className="badge-colors text-center">
               <Badge
-                color="primary"
+                color="black-states"
                 className={
-                  props.bgColor === backgroundColors.primary ? "active" : ""
+                  props.bgColor === backgroundColors.dark ? "active" : ""
                 }
                 onClick={() => {
-                  props.handleBgClick(backgroundColors.primary);
-                }}
-              />{" "}
-              <Badge
-                color="info"
-                className={
-                  props.bgColor === backgroundColors.blue ? "active" : ""
-                }
-                onClick={() => {
-                  props.handleBgClick(backgroundColors.blue);
+                  props.handleBgClick(backgroundColors.dark);
                 }}
               />{" "}
               <Badge
@@ -84,7 +75,26 @@ function FixedPlugin(props) {
               )}
             </ThemeContext.Consumer>
           </li>
-          <li className="button-container">
+        </ul>
+      </Dropdown>
+    </div>
+  );
+}
+
+export default FixedPlugin;
+/*
+   <Badge
+                color="info"
+                className={
+                  props.bgColor === backgroundColors.blue ? "active" : ""
+                }
+                onClick={() => {
+                  props.handleBgClick(backgroundColors.blue);
+                }}
+              />{" "}
+*/
+/*
+<li className="button-container">
             <Button
               href="https://www.creative-tim.com/product/black-dashboard-react"
               color="primary"
@@ -115,10 +125,4 @@ function FixedPlugin(props) {
               Get pro version
             </Button>
           </li>
-        </ul>
-      </Dropdown>
-    </div>
-  );
-}
-
-export default FixedPlugin;
+*/
