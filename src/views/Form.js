@@ -1,22 +1,4 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
-
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col, Input, Form, CardText, Spinner, FormGroup, Label, Button } from "reactstrap";
 import { Select, InputLabel, FormControl, SelectChangeEvent, MenuItem, CircularProgress} from "@mui/material";
@@ -43,17 +25,17 @@ function Form_consulta() {
     const [date, setDate] = React.useState(new Date());
     const [dataForm, setDataForm] = React.useState('');
     const [urlPdf, seturlPdf] = React.useState('');
-    const [dataCadernos, setdataCadernos] = React.useState(list_secoes)
-    const [dataSecoes, setdataSecoes] = React.useState(list_secoes[0])
+    const [dataCadernos, setdataCadernos] = React.useState(dataForm_local.list_cadernos || [])
+    const [dataSecoes, setdataSecoes] = React.useState(dataForm_local.list_secoes || [])
     const [displaySecoes, setdisplaySecoes] = React.useState(true)
     const [ValueCaderno, setValueCaderno] = React.useState("")
     const [ValueSecao, setValueSecao] = React.useState("")
     const [age, setAge] = React.useState('');
     //const [ChangeEvent, setChangeEvent] = React.useState(SelectChangeEvent || false)
 
-    const getUrl = (caderno_value, secao_value) => {
+    const getCadernos_Secoes = (caderno_value, secao_value) => {
 
-        axios.get("https://fastapi-selenium-production-30d6.up.railway.app/tjsp/servicos/consulta", {
+        axios.get("https://fastapi-selenium-production-30d6.up.railway.app/tjsp/servicos/consulta/cadernos_secoes", {
             params: {
                 cadernos:  caderno_value || 0,
                 secoes: secao_value || 0
@@ -64,7 +46,7 @@ function Form_consulta() {
             }
         })
         .then(function (response) {
-            if (response) {
+            if (response ) {
                 console.log(response.data)
                 setDataForm(response.data)
             }
@@ -87,7 +69,11 @@ function Form_consulta() {
           params: {
               "cadernos": caderno_value || 0,
               "secoes": secao_value || 0
-          }
+          },
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            }
         })
         .then(function (response) {
           // manipula o sucesso da requisição
@@ -106,6 +92,34 @@ function Form_consulta() {
 
       }
 
+    const getUrl = (caderno_value, secao_value) => {
+
+        axios.get("https://fastapi-selenium-production-30d6.up.railway.app/tjsp/servicos/consulta", {
+            params: {
+                cadernos:  caderno_value || 0,
+                secoes: secao_value || 0
+            },
+            headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            }
+        })
+        .then(function (response) {
+            if (response ) {
+                console.log(response.data)
+                seturlPdf(response.data.url)
+            }
+        })
+        .catch(function (error) {
+            // manipula erros da requisição
+        console.error(error);
+        })
+        .finally(function () {
+            // sempre será executado
+        });
+
+     }  
+
     const handleChange_Caderno = (e) => {
         //setAge(event.target.value);
         setValueCaderno(e.target.selectedIndex)
@@ -116,17 +130,25 @@ function Form_consulta() {
     };
 
     React.useEffect(() => {
-        //getUrl(undefined, undefined)
+        getCadernos_Secoes(undefined, undefined)
+        /*
         console.log(dataForm_local)
         setDataForm(dataForm_local)
         setdataCadernos(dataForm_local.list_cadernos)
         setValueCaderno(0)
         setdataSecoes(dataForm_local.list_secoes)
+        */
     }, []);
 
     React.useEffect(() => {
-        setdataSecoes(list_secoes[ValueCaderno])
+        //setdataSecoes(list_secoes[ValueCaderno])
+        getSecoes(ValueCaderno, undefined)
     }, [ValueCaderno]);
+
+    React.useEffect(() => {
+        setdataCadernos(dataForm_local.list_cadernos)
+        setdataSecoes(dataForm_local.list_secoes)
+    }, [dataForm]);
 
   return (
     <>
